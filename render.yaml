@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: trongkhang
+    runtime: python
+    plan: free
+    startCommand: python app.py
+    autoDeploy: true
+    envVars:
+      - key: HOST
+        value: 0.0.0.0
