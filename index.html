@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trong Khang</title>
+    <link rel="icon" href="/img/icon.png">
+    <script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}else if(t==='light'){document.documentElement.removeAttribute('data-theme');}}catch(e){}})();</script>
+    <style>
+        html[data-theme="dark"] {
+            --dark-text-color: #949494;
+            --nice-div-color: rgb(30, 30, 30);
+            --bullet-color: rgb(90,90,90);
+            --background-color: #121212;
+            --subtle-background-darker: rgb(23, 23, 23);
+            --border-background-color: #3b3d3e;
+            --code-background-color: #242424;
+            --link-background-color: #6b6b6b;
+            --link-color: #cfcfcf;
+            --color: #e6e6e6;
+            --hr-color: dimgray;
+            --gradient-bottom: #1e1e1e;
+            --gradient-top: var(--background-color);
+            --text-primary: #e0e0e0;
+            --text-secondary: #a3a3a3;
+            --background: #121212;
+        }
+        html[data-theme="dark"] body { background-color: var(--background, var(--background-color, #121212)); color: var(--text-primary, var(--color, #e6e6e6)); }
+        @media (prefers-color-scheme: dark) {
+            html:not([data-theme="light"]) body { background-color: #121212; color: #e0e0e0; }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap">
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        /* Index-only: prevent extra scrolling by compensating for fixed header height */
+        body { height: auto; min-height: calc(100vh - 80px); }
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 20px 20px 0 20px;
+            margin-top: 0; /* Let shared nav control top spacing */
+            position: relative;
+            z-index: 1;
+            font-size: 17px;
+        }
+
+        /* Two-column list for beliefs */
+        .beliefs-list {
+            column-count: 2;
+            column-gap: 2rem;
+        }
+        .beliefs-list li { break-inside: avoid; }
+        /* Shift only the bullet (not text) for longer last three items */
+        .beliefs-list .shift-left::before { margin-left: -4em; }
+
+        /* Desktop-only: use native bullets for correct alignment in columns */
+        @media (min-width: 769px) {
+            .beliefs-list { list-style: disc; list-style-position: outside; padding-left: 1.25em; }
+            .beliefs-list li { display: list-item; position: static; padding-left: 0; }
+            .beliefs-list li::before { content: none !important; }
+            .beliefs-list li::marker { color: var(--bullet-color); }
+            /* Force 3/3 split: break to next column after 3rd item */
+            .beliefs-list > li:nth-child(3) { break-after: column; }
+            /* Nudge right-column bullets slightly left for visual balance */
+            .beliefs-list > li:nth-child(n+4) { margin-left: -5em; }
+
+            /* Fix alignment for other lists on index page */
+            .container ul { list-style: disc; list-style-position: outside; padding-left: 1.25em; }
+            .container ul > li { display: list-item; position: static; padding-left: 0; }
+            .container ul > li::before { content: none !important; }
+            .container ul > li::marker { color: var(--bullet-color); }
+        }
+
+        @media (max-width: 768px) {
+            body { min-height: calc(100vh - 60px); }
+            .container {
+                margin-top: -35px; /* Slight upward shift on mobile */
+                font-size: 15px;
+                line-height: 1.5;
+            }
+            .beliefs-list { column-count: 1; }
+            /* Reset special bullet shift on mobile for clean single list */
+            .beliefs-list .shift-left::before { margin-left: -1em; }
+            /* Mobile bullet fix: use native bullets for clean alignment */
+            .beliefs-list { list-style: disc; list-style-position: outside; padding-left: 1.25em; }
+            .beliefs-list li { position: static; padding-left: 0; display: list-item; }
+            .beliefs-list li::before { content: none !important; }
+            .beliefs-list li::marker { color: var(--bullet-color); }
+
+            /* Apply same native bullet behavior to all content lists for alignment */
+            .container ul { list-style: disc; list-style-position: outside; padding-left: 1.25em; }
+            .container ul > li { display: list-item; position: static; padding-left: 0; }
+            .container ul > li::before { content: none !important; }
+            .container ul > li::marker { color: var(--bullet-color); }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin-top: 0;
+                font-size: 14px;
+                line-height: 1.5;
+            }
+        }
+    </style>
+    <style>
+        /* Subtle fade-up reveal */
+        .fade-up { opacity: 0; transform: translateY(12px); transition: opacity 420ms ease, transform 420ms ease; will-change: opacity, transform; }
+        .fade-up.is-visible { opacity: 1; transform: none; }
+    </style>
+    <script>document.documentElement.setAttribute('data-theme','dark');</script>
+    <link rel="stylesheet" href="/static/theme.css">
+    <script src="/js/theme.js" defer></script>
+</head>
+
+<body>
+$1<link rel="stylesheet" href="/static/nav.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<div class="site-nav-wrapper">
+    <a href="/" class="site-name">
+        <img src="/img/icon.png" alt="Trong Khang Icon">
+        Trong Khang
+    </a>
+    <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <nav class="site-nav">
+        <a href="/">About</a>
+        <a href="/public/blog.html">Blog</a>
+        <a href="/public/write.html">Write</a>
+    </nav>
+    <div class="social-icons">
+        <a href="https://x.com/trongkhang" target="_blank" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+        <a href="https://github.com/trongkhang" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/trongkhang/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+</div>
+<!-- /site header -->
+    
+    <!-- Shared navigation injected like other pages -->
+    <script src="/js/import-nav.js"></script>
+    <script>
+        // Ensure the header is solid on mobile only (desktop stays transparent)
+        (function(){
+            function applyNavBackground(){
+                try {
+                    var wrapper = document.querySelector('.site-nav-wrapper');
+                    if (!wrapper) return;
+                    var isMobile = window.innerWidth <= 768;
+                    if (isMobile) {
+                        var explicitTheme = document.documentElement.getAttribute('data-theme');
+                        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                        var isDark = explicitTheme === 'dark' || (prefersDark && explicitTheme !== 'light');
+                        var bg = isDark ? 'rgba(10,14,21,0.94)' : '#ffffff';
+                        wrapper.style.setProperty('background-color', bg, 'important');
+                    } else {
+                        // Remove inline override so desktop CSS can keep it transparent
+                        wrapper.style.removeProperty('background-color');
+                    }
+                } catch(e) {}
+            }
+
+            // Wait for nav to be injected, then apply
+            var attempts = 0;
+            var timer = setInterval(function(){
+                var wrapper = document.querySelector('.site-nav-wrapper');
+                if (wrapper || attempts > 30) {
+                    clearInterval(timer);
+                    applyNavBackground();
+                }
+                attempts++;
+            }, 100);
+
+            // Re-apply on system theme changes
+            if (window.matchMedia) {
+                var mq = window.matchMedia('(prefers-color-scheme: dark)');
+                if (mq && mq.addEventListener) {
+                    mq.addEventListener('change', applyNavBackground);
+                }
+            }
+
+            // Update on resize (switching mobile/desktop widths)
+            window.addEventListener('resize', applyNavBackground);
+        })();
+    </script>
+
+    <div class="container">
+        <p>hi! i'm trong khang</p>
+        <p>my life goal is to explore the potentialities of intelligence</p>
+        <p>right now i'm doing ml research at <a href="https://www.kimi.com/">kimi moonshot</a>, where i work on llm scaling & pretraining (e.g., kimi k3). my research mostly focuses on model architectures (<a href="https://x.com/Kimi_Moonshot/status/2033378587878072424">past example</a>) and optimizers. i also like thinking about efficient, hardware-aligned algorithms and kernels (co-design them!).</p>
+        <p>prior to this, i worked on applied interp research at <a href="https://www.tilderesearch.com/">tilde research</a>. outside of work, i try to learn as much as i can.</p>
+        <p>here are some things i believe in:</p>
+        <ul class="beliefs-list">
+            <li>agency is a superpower</li>
+            <li>taste is learnable</li>
+            <li>write things down</li>
+            <li class="shift-left"><i>everything is figureoutable with friends</i></li>
+            <li class="shift-left">the world is hackable in <i>wholesome</i> ways</li>
+            <li class="shift-left">don't sink into a local minimum</li>
+        </ul>
+        <p>here are some things i like:</p>
+        <ul>
+            <li>serendipitous blogs, open-source, mangoes, cold showers, excalidraw, doc.new, elegant kernels, asking llms first, mixing lego pieces, constrained geometric shapes, meditating, learning from my sensei gemini (this didn't age well), intuition, light mode, cli, blocks, "twitter" - the name, twitter's rec algo</li>
+        </ul>
+        <p>things i don't like:</p>
+        <ul>
+            <li>twitter's rec algo</li>
+        </ul>
+        <p>i love people and write back. <a href="public/contact.html">send me a message!</a> (email probably works best)</p>
+        <p class="site-credit">logo: Arturo de Frias Marques (Wikimedia Commons) — <a href="https://commons.wikimedia.org/wiki/File:Polar_Bear_AdF.jpg" target="_blank" rel="noopener">CC BY-SA 4.0</a> · nền: "Polar bears near north pole" (public domain)</p>
+    </div>
+
+    <script>
+        // Page load reveal
+        document.addEventListener('DOMContentLoaded', function(){
+            var el = document.querySelector('.container');
+            if (!el) return;
+            el.classList.add('fade-up');
+            requestAnimationFrame(function(){ el.classList.add('is-visible'); });
+        });
+    </script>
+
+    
+</body>
+</html>

@@ -1,0 +1,151 @@
+/* Arctic / 50-years-of-Victory theme: animated photo backdrop, snowfall, St. George ribbon. */
+
+html[data-theme="dark"] {
+    --text-primary: #e9e7e2;
+    --text-secondary: #a8adb6;
+    --background: #0a0e15;
+    --technical-bg: rgba(59, 130, 246, 0.25);
+    --reflection-bg: rgba(232, 117, 26, 0.25);
+    --article-bg: rgba(139, 92, 246, 0.25);
+    --link-color: #f0a45f;
+    --link-background-color: rgba(232, 117, 26, 0.5);
+    --bullet-color: #7f8896;
+    --code-background-color: rgba(255, 255, 255, 0.06);
+    --border-background-color: rgba(255, 255, 255, 0.16);
+    --ribbon-orange: #e8751a;
+    --ribbon-black: #16181c;
+}
+
+body {
+    background-color: transparent !important;
+    color: var(--text-primary) !important;
+}
+
+/* --- animated backdrop --- */
+.arctic-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: url('/img/polar-bear-bg.jpg') center / cover no-repeat;
+    filter: blur(3px) brightness(0.42) saturate(0.85);
+    animation: arctic-drift 70s ease-in-out infinite alternate;
+    will-change: transform;
+}
+
+@keyframes arctic-drift {
+    from { transform: scale(1.04) translate3d(0, 0, 0); }
+    to   { transform: scale(1.2) translate3d(-1.5%, -1.5%, 0); }
+}
+
+.arctic-veil {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(120% 90% at 50% 0%, rgba(10, 14, 21, 0.35), rgba(10, 14, 21, 0.85) 70%),
+        linear-gradient(180deg, rgba(8, 11, 17, 0.72), rgba(8, 11, 17, 0.5) 40%, rgba(8, 11, 17, 0.92));
+}
+
+#snow {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* content sits above the backdrop */
+.container,
+.blog-page,
+#page-wrap,
+article,
+footer {
+    position: relative;
+    z-index: 2;
+}
+
+/* --- St. George ribbon accents --- */
+.site-nav::after {
+    background-image: repeating-linear-gradient(45deg, var(--ribbon-orange) 0 8px, var(--ribbon-black) 8px 16px) !important;
+    background-color: transparent !important;
+    height: 3px !important;
+    opacity: 0.9;
+}
+
+.victory-badge {
+    position: fixed;
+    left: 1rem;
+    bottom: 1rem;
+    z-index: 60;
+    display: flex;
+    align-items: stretch;
+    font-family: 'Spectral', Times, serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+    opacity: 0.85;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.victory-badge:hover { opacity: 1; transform: translateY(-2px); }
+
+.victory-badge .ribbon {
+    width: 10px;
+    background: repeating-linear-gradient(45deg, var(--ribbon-orange) 0 6px, var(--ribbon-black) 6px 12px);
+}
+
+.victory-badge .label {
+    background: rgba(8, 11, 17, 0.82);
+    color: #f2efe9;
+    padding: 0.4rem 0.8rem;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .victory-badge { font-size: 0.62rem; left: 0.5rem; bottom: 0.5rem; }
+}
+
+/* --- blog / post tweaks for the dark backdrop --- */
+.blog-empty {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    padding: 1rem 1.25rem;
+}
+
+.blog-empty a { color: var(--link-color); }
+
+/* --- image credit (CC BY-SA) --- */
+.site-credit {
+    margin-top: 2.5rem;
+    font-size: 0.7rem;
+    color: #6f7681;
+    letter-spacing: 0.02em;
+}
+.site-credit a { color: #9aa1ab; }
+
+.post-body img { max-width: 100%; height: auto; border-radius: 4px; }
+.post-body pre {
+    background: rgba(0, 0, 0, 0.45);
+    padding: 1rem;
+    overflow-x: auto;
+    border-radius: 6px;
+    border: 1px solid var(--border-background-color);
+}
+.post-body code { font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 0.9em; }
+.post-body :not(pre) > code {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.1em 0.35em;
+    border-radius: 4px;
+}
+.post-body blockquote {
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 3px solid var(--ribbon-orange);
+}
+.post-body hr { border: none; border-top: 1px solid var(--border-background-color); }
+
+@media (prefers-reduced-motion: reduce) {
+    .arctic-bg { animation: none; }
+}

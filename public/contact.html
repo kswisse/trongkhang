@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Trong Khang</title>
+    <link rel="icon" href="/img/icon.png">
+    <script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}else if(t==='light'){document.documentElement.removeAttribute('data-theme');}}catch(e){}})();</script>
+    <style>
+        html[data-theme="dark"] {
+            --text-primary: #e0e0e0;
+            --text-secondary: #a3a3a3;
+            --background: #121212;
+        }
+        html[data-theme="dark"] body { background: var(--background, #121212); color: var(--text-primary, #e6e6e6); }
+        @media (prefers-color-scheme: dark) {
+            html:not([data-theme="light"]) body { background: #121212; color: #e0e0e0; }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,500;0,600;0,800;1,200;1,300;1,500;1,600;1,800&display=swap">
+    <link rel="stylesheet" href="/static/post.css">
+    <style>
+        /* Override post.css styles */
+        #content-wrap {
+            padding-top: 0 !important;
+        }
+
+        article {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+            padding-left: 0 !important;  /* Remove left padding */
+            padding-right: 0 !important;  /* Remove right padding */
+        }
+
+        header {
+            padding: 30px 0 0 0 !important;
+            margin-left: 0 !important;  /* Ensure no left margin */
+            margin-right: 0 !important;  /* Ensure no right margin */
+        }
+
+        .post-heading {
+            padding-left: 0 !important;  /* Remove any left padding */
+            margin-left: 0 !important;   /* Remove any left margin */
+            font-size: 1.5em !important;
+            margin-bottom: 0.3em !important;
+            margin-top: 0.5em !important;
+            text-align: left !important;
+        }
+
+        .page-description {
+            color: #666 !important;
+            font-size: 0.85em !important;
+            margin-bottom: 2em !important;
+            line-height: 1.6 !important;
+            text-align: left !important;
+        }
+
+        .contact-list {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 1.5em 0 1.5em 0 !important;
+        }
+
+        .contact-list li {
+            margin: 1em 0 !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.8rem !important;
+        }
+
+        .contact-list li::before {
+            content: none !important;  /* Remove default bullet */
+        }
+
+        .contact-label {
+            min-width: 90px !important;
+            color: #666 !important;
+            font-size: 0.85em !important;
+        }
+
+        .contact-link {
+            font-size: 0.85em !important;
+        }
+
+        .tutor-section {
+            margin-top: 3em !important;
+            padding-top: 1.5em !important;
+            border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .tutor-section p {
+            color: #666 !important;
+            font-size: 0.85em !important;
+            line-height: 1.6 !important;
+        }
+
+        @media (max-width: 987px) {
+            header {
+                padding: 20px 0 0 0 !important;  /* Removed left/right padding */
+            }
+            
+            .post-heading {
+                font-size: 1.4em !important;
+            }
+        }
+    </style>
+    <style>
+        .contact-form { margin-top: 2.5em; }
+        .contact-form h2 {
+            font-family: 'Spectral', Times, serif;
+            font-size: 1.1em;
+            font-weight: 500;
+            margin: 0 0 1em 0;
+        }
+        .contact-form label {
+            display: block;
+            font-size: 0.85em;
+            color: #666;
+            margin-bottom: 1em;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 0.4em;
+            padding: 0.6em 0.7em;
+            font: inherit;
+            font-size: 1.05em;
+            color: inherit;
+            background: transparent;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            border-radius: 4px;
+            outline: none;
+        }
+        .contact-form input:focus,
+        .contact-form textarea:focus { border-color: rgba(0, 0, 0, 0.45); }
+        .contact-form textarea { resize: vertical; min-height: 8em; }
+        .contact-form button {
+            font: inherit;
+            font-size: 0.9em;
+            padding: 0.55em 1.6em;
+            color: inherit;
+            background: transparent;
+            border: 1px solid rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+        .contact-form button:hover { background: rgba(0, 0, 0, 0.05); border-color: rgba(0, 0, 0, 0.5); }
+        .contact-form button:disabled { opacity: 0.5; cursor: default; }
+        .form-status { font-size: 0.85em; color: #666; min-height: 1.4em; margin: 1em 0 0 0; }
+        @media (prefers-color-scheme: dark) {
+            .contact-form input,
+            .contact-form textarea,
+            .contact-form button { border-color: rgba(255, 255, 255, 0.18); }
+            .contact-form input:focus,
+            .contact-form textarea:focus { border-color: rgba(255, 255, 255, 0.45); }
+            .contact-form button:hover { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.45); }
+        }
+    </style>
+    <script>document.documentElement.setAttribute('data-theme','dark');</script>
+    <link rel="stylesheet" href="/static/theme.css">
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+$1<link rel="stylesheet" href="/static/nav.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<div class="site-nav-wrapper">
+    <a href="/" class="site-name">
+        <img src="/img/icon.png" alt="Trong Khang Icon">
+        Trong Khang
+    </a>
+    <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <nav class="site-nav">
+        <a href="/">About</a>
+        <a href="/public/blog.html">Blog</a>
+        <a href="/public/write.html">Write</a>
+    </nav>
+    <div class="social-icons">
+        <a href="https://x.com/trongkhang" target="_blank" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+        <a href="https://github.com/trongkhang" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/trongkhang/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+</div>
+<!-- /site header -->
+    <script src="/js/import-nav.js"></script>
+    <div id="page-wrap" class="fade-up">
+        <div id="content-wrap" id="contact-wrap">
+            <article>
+                <header>
+                    <h1 class="post-heading">let's talk!</h1>
+                    <p class="page-description">feel free to reach out through any of these :)</p>
+                </header>
+
+                <ul class="contact-list">
+                    <li>
+                        <span class="contact-label">Email</span>
+                        <a href="mailto:hello@trongkhang.dev" class="contact-link">
+                            hello@trongkhang.dev
+                        </a>
+                    </li>
+                    <li>
+                        <span class="contact-label">X</span>
+                        <a href="https://x.com/trongkhang" class="contact-link">
+                            DMs Open :)
+                        </a>
+                    </li>
+                    <li>
+                        <span class="contact-label">GitHub</span>
+                        <a href="https://github.com/trongkhang" target="_blank" class="contact-link">@trongkhang</a>
+                    </li>
+                    <li>
+                        <span class="contact-label">Feedback</span>
+                        <a href="https://www.trongkhang.dev/feedback" target="_blank" class="contact-link">Give me anonymous feedback!</a>
+                    </li>
+                </ul>
+
+                <form class="contact-form" id="contact-form" novalidate>
+                    <h2>or leave a message here</h2>
+                    <label>Name
+                        <input type="text" name="name" maxlength="80" required>
+                    </label>
+                    <label>Email
+                        <input type="email" name="email" maxlength="200" required>
+                    </label>
+                    <label>Message
+                        <textarea name="message" maxlength="4000" required></textarea>
+                    </label>
+                    <button type="submit">Send</button>
+                    <p class="form-status" id="form-status" role="status"></p>
+                </form>
+
+                <script>
+                    document.getElementById('contact-form').addEventListener('submit', async function (e) {
+                        e.preventDefault();
+                        const form = e.currentTarget;
+                        const status = document.getElementById('form-status');
+                        const button = form.querySelector('button');
+                        const data = Object.fromEntries(new FormData(form));
+                        button.disabled = true;
+                        status.textContent = 'sending...';
+                        try {
+                            const res = await fetch('/api/contact', {
+                                method: 'POST',
+                                headers: { 'content-type': 'application/json' },
+                                body: JSON.stringify(data),
+                            });
+                            const body = await res.json();
+                            if (!res.ok) throw new Error(body.error || 'something went wrong');
+                            status.textContent = 'thanks! got your message.';
+                            form.reset();
+                        } catch (err) {
+                            status.textContent = err.message;
+                        } finally {
+                            button.disabled = false;
+                        }
+                    });
+                </script>
+            </article>
+            <p style="text-align:center;"><a id="home-footer-link" href="/">Home</a></p>
+        </div>
+    </div>
+    <script>
+        // Page load reveal
+        document.addEventListener('DOMContentLoaded', function(){
+            // Inject minimal CSS once if missing
+            if (!document.getElementById('fade-up-style')) {
+                var style = document.createElement('style');
+                style.id = 'fade-up-style';
+                style.textContent = '.fade-up{opacity:0;transform:translateY(12px);transition:opacity 420ms ease,transform 420ms ease;will-change:opacity,transform}.fade-up.is-visible{opacity:1;transform:none}';
+                document.head.appendChild(style);
+            }
+            var root = document.getElementById('page-wrap');
+            if (!root) return;
+            requestAnimationFrame(function(){ root.classList.add('is-visible'); });
+        });
+    </script>
+</body>
+</html>

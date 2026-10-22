@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trong Khang</title>
+    <link rel="icon" href="/img/icon.png">
+    <script>document.documentElement.setAttribute('data-theme','dark');</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap">
+    <link rel="stylesheet" href="/static/post.css">
+    <link rel="stylesheet" href="/static/nav.css">
+    <link rel="stylesheet" href="/static/theme.css">
+    <script src="/js/theme.js" defer></script>
+    <style>
+        #content-wrap { padding-top: 0 !important; }
+        article { margin-top: 0 !important; padding-top: 0 !important; padding-left: 0 !important; padding-right: 0 !important; }
+        header { padding: 30px 0 0 0 !important; margin-left: 0 !important; margin-right: 0 !important; }
+        .post-heading { padding-left: 0 !important; margin-left: 0 !important; font-size: 1.6em !important; margin-bottom: 0.2em !important; margin-top: 0.4em !important; text-align: left !important; }
+        .page-description { color: #9aa1ab !important; font-size: 0.85em !important; margin-bottom: 2em !important; line-height: 1.6 !important; text-align: left !important; }
+        .post-body { font-size: 1rem; line-height: 1.75; }
+        .post-body h1, .post-body h2, .post-body h3 { margin-top: 1.6em; margin-bottom: 0.5em; }
+        .post-body h1 { text-align: left; font-size: 1.45em; }
+        .post-body h2 { font-size: 1.25em; }
+        .post-body ul { list-style: disc; list-style-position: outside; padding-left: 1.4em; }
+        .post-body ul > li { position: static; padding-left: 0; margin-bottom: 0.35em; }
+        .post-body ul > li::before { content: none; }
+        .post-body ol > li { margin-bottom: 0.35em; }
+        .post-actions { margin-top: 3em; font-size: 0.9em; }
+        .post-actions a { color: var(--link-color); }
+    </style>
+</head>
+<body>
+<!-- site header -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<div class="site-nav-wrapper">
+    <a href="/" class="site-name">
+        <img src="/img/icon.png" alt="Trong Khang Icon">
+        Trong Khang
+    </a>
+    <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <nav class="site-nav">
+        <a href="/">About</a>
+        <a href="/public/blog.html">Blog</a>
+        <a href="/public/write.html">Write</a>
+    </nav>
+    <div class="social-icons">
+        <a href="https://x.com/trongkhang" target="_blank" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+        <a href="https://github.com/trongkhang" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/trongkhang/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+</div>
+<!-- /site header -->
+    <script src="/js/import-nav.js"></script>
+    <div id="page-wrap" class="fade-up">
+        <div id="content-wrap">
+            <article>
+                <header>
+                    <h1 class="post-heading" id="post-title">…</h1>
+                    <p class="page-description" id="post-meta"></p>
+                </header>
+                <div class="post-body" id="post-body"></div>
+                <p class="post-actions">
+                    <a id="edit-link" href="/public/write.html">edit bài này</a> ·
+                    <a href="/public/blog.html">← tất cả bài viết</a>
+                </p>
+            </article>
+            <p style="text-align:center;"><a id="home-footer-link" href="/">Home</a></p>
+        </div>
+    </div>
+    <script>
+        (function () {
+            const slug = new URLSearchParams(location.search).get('slug');
+            const titleEl = document.getElementById('post-title');
+            const metaEl = document.getElementById('post-meta');
+            const bodyEl = document.getElementById('post-body');
+            const editLink = document.getElementById('edit-link');
+            if (!slug) {
+                titleEl.textContent = 'không tìm thấy bài viết';
+                metaEl.textContent = '';
+                bodyEl.innerHTML = '<p>Thiếu tham số <code>?slug=</code>. <a href="/public/blog.html">Về trang blog</a>.</p>';
+                return;
+            }
+            editLink.href = '/public/write.html?slug=' + encodeURIComponent(slug);
+            fetch('/api/posts/' + encodeURIComponent(slug))
+                .then(function (res) {
+                    if (!res.ok) throw new Error('not found');
+                    return res.json();
+                })
+                .then(function (post) {
+                    document.title = post.title + ' — Trong Khang';
+                    titleEl.textContent = post.title;
+                    metaEl.textContent = [post.date, post.category].filter(Boolean).join(' · ');
+                    bodyEl.innerHTML = post.html;
+                })
+                .catch(function () {
+                    titleEl.textContent = 'không tìm thấy bài viết';
+                    bodyEl.innerHTML = '<p>Bài viết này không tồn tại (hoặc đã bị xoá).</p>';
+                });
+        })();
+    </script>
+</body>
+</html>

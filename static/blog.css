@@ -1,0 +1,415 @@
+:root {
+    --text-primary: #2c2c2c;
+    --text-secondary: #888;
+    --background: #ffffff;
+    --technical-bg: rgba(59, 130, 246, 0.04);
+    --reflection-bg: rgba(245, 158, 11, 0.04);
+    --article-bg: rgba(139, 92, 246, 0.04);
+
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-primary: #e0e0e0;
+        --text-secondary: #999;
+        --background: #121212;
+        --technical-bg: rgba(59, 130, 246, 0.12);
+        --reflection-bg: rgba(245, 158, 11, 0.12);
+        --article-bg: rgba(139, 92, 246, 0.12);
+
+    }
+}
+
+/* Respect explicit theme toggle as well */
+html[data-theme="dark"] {
+    --technical-bg: rgba(59, 130, 246, 0.22);
+    --reflection-bg: rgba(245, 158, 11, 0.22);
+    --article-bg: rgba(139, 92, 246, 0.22);
+}
+
+/* Explicit dark theme overrides to ensure visibility regardless of variable inheritance */
+@media (prefers-color-scheme: dark) {
+    .blog-entry.technical .blog-title { background: rgba(59, 130, 246, 0.22); }
+    .blog-entry.reflection .blog-title { background: rgba(245, 158, 11, 0.22); }
+    .blog-entry.article .blog-title { background: rgba(139, 92, 246, 0.22); }
+}
+
+html[data-theme="dark"] .blog-entry.technical .blog-title { background: rgba(59, 130, 246, 0.22); }
+html[data-theme="dark"] .blog-entry.reflection .blog-title { background: rgba(245, 158, 11, 0.22); }
+html[data-theme="dark"] .blog-entry.article .blog-title { background: rgba(139, 92, 246, 0.22); }
+
+body {
+    font-family: 'Spectral', Times, serif;
+    background: var(--background);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    transition: var(--transition);
+}
+
+.blog-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main Layout */
+.blog-layout {
+    display: flex;
+    max-width: 1000px;
+    margin: 0;
+    margin-left: clamp(1rem, 12vw - 3rem, 8rem); /* shrinks on narrower windows */
+    padding: 2rem 2rem 0 0;
+    gap: 2rem;
+    flex: 1;
+    position: relative;
+}
+
+/* Category Legend */
+.category-legend {
+    position: sticky;
+    top: 2rem;
+    width: 120px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem 1rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0; /* Remove round corners for consistency */
+    transition: var(--transition);
+    user-select: none;
+}
+
+.legend-item:hover {
+    background: rgba(0, 0, 0, 0.03);
+    color: var(--text-primary);
+}
+
+.legend-item.active {
+    background: rgba(0, 0, 0, 0.06);
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.legend-item.active .legend-color {
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+    .legend-item:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text-primary);
+    }
+    
+    .legend-item.active {
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--text-primary);
+    }
+}
+
+.legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 0; /* Remove round corners for consistency */
+    border: 1px solid;
+    transition: var(--transition);
+}
+
+.legend-color.technical {
+    background: rgba(59, 130, 246, 0.3);
+    border-color: rgba(59, 130, 246, 0.4);
+}
+
+.legend-color.reflection {
+    background: rgba(245, 158, 11, 0.3);
+    border-color: rgba(245, 158, 11, 0.4);
+}
+
+.legend-color.article {
+    background: rgba(139, 92, 246, 0.3);
+    border-color: rgba(139, 92, 246, 0.4);
+}
+
+/* Blog List */
+.blog-list {
+    flex: 1;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    position: relative;
+}
+
+/* Blog Entries */
+.blog-entry {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1.25rem;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 280ms ease, opacity 280ms ease, color 200ms ease;
+    position: relative;
+}
+
+/* Category Styling - Title Highlighting */
+.blog-entry.technical .blog-title {
+    background: var(--technical-bg);
+    padding: 0.25rem 0.5rem;
+    margin-left: 2rem;
+    border-radius: 0; /* Remove round corners for consistency */
+}
+
+.blog-entry.reflection .blog-title {
+    background: var(--reflection-bg);
+    padding: 0.25rem 0.5rem;
+    margin-left: 2rem;
+    border-radius: 0; /* Remove round corners for consistency */
+}
+
+.blog-entry.article .blog-title {
+    background: var(--article-bg);
+    padding: 0.25rem 0.5rem;
+    margin-left: 2rem;
+    border-radius: 0; /* Remove round corners for consistency */
+}
+
+.blog-entry:hover {
+    transform: translateY(3px); /* gentle downward motion */
+}
+
+.blog-entry.hidden {
+    display: none;
+}
+
+/* Blog Content */
+.blog-date {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    width: 90px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    font-weight: 300;
+}
+
+.blog-title {
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin-left: 2.5rem;
+    position: relative;
+    z-index: 1;
+    font-weight: 400;
+    transition: var(--transition);
+}
+
+.blog-entry:hover .blog-title {
+    color: var(--text-primary);
+    opacity: 0.95;
+}
+
+/* Hover Preview: subtitle branches out from the hovered title on a thin curve */
+.branch-svg {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 260ms ease;
+}
+
+.branch-svg.visible {
+    opacity: 1;
+}
+
+.branch-path {
+    fill: none;
+    stroke: var(--text-secondary);
+    stroke-opacity: 0.5;
+    stroke-width: 1;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 560ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* left and width are set in blog.html when an entry is hovered */
+.hover-preview {
+    position: fixed;
+    top: 45vh; /* lock to viewport position */
+    left: 0;
+    transform: translateY(-50%);
+    width: 320px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 300ms ease, visibility 300ms;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.hover-preview.visible {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 200ms; /* let the branch arrive first */
+}
+
+.preview-subtitle {
+    font-style: italic;
+    font-weight: 300;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.7;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 3rem 0;
+    margin-top: 4rem;
+}
+
+#home-footer-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    border-bottom: 1px solid transparent;
+}
+
+#home-footer-link:hover {
+    color: var(--text-primary);
+    border-bottom-color: var(--text-primary);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .blog-layout {
+        flex-direction: column;
+        padding: 1rem 1rem;
+        margin-left: 0;
+        gap: 2rem;
+    }
+    
+    /* Slightly reduce overall text size on mobile without affecting rem-based spacing */
+    .blog-page {
+        font-size: 0.95rem;
+    }
+    
+    .category-legend {
+        position: static;
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+        padding: 0.75rem 1rem;
+        margin: 0 0 1rem 0;
+        display: flex !important; /* Ensure legend shows on mobile */
+        order: -1; /* Put legend at the very top */
+        flex-wrap: wrap; /* Make sure all items fit */
+        gap: 0.75rem;
+    }
+    
+    .legend-item {
+        font-size: 0.75rem;
+    }
+    
+    .blog-list {
+        max-width: 100%;
+    }
+    
+    .blog-entry {
+        padding: 0.5rem 1rem;
+    }
+    
+    .blog-date {
+        width: 60px; /* Narrower date column for more title space */
+        font-size: 0.7rem;
+    }
+    
+    .blog-title {
+        font-size: 0.9rem;
+        margin-left: 0.25rem; /* Reduce padding between date and title */
+    }
+    
+    /* Reduce extra category-specific left spacing on mobile */
+    .blog-entry.technical .blog-title,
+    .blog-entry.reflection .blog-title,
+    .blog-entry.article .blog-title {
+        margin-left: 0.25rem;
+    }
+    
+    .hover-preview,
+    .branch-svg {
+        display: none; /* Hide hover preview completely on mobile */
+    }
+
+    /* Footer link slightly smaller on mobile */
+    footer #home-footer-link {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .blog-date {
+        width: 48px; /* Even narrower on smallest screens */
+        font-size: 0.7rem;
+    }
+    
+    .blog-title {
+        font-size: 0.9rem;
+        margin-left: 0.2rem; /* Minimal padding for maximum title space */
+    }
+    
+    /* Keep category spacing minimal on the smallest screens */
+    .blog-entry.technical .blog-title,
+    .blog-entry.reflection .blog-title,
+    .blog-entry.article .blog-title {
+        margin-left: 0.2rem;
+    }
+    
+    .blog-entry {
+        padding: 0.4rem 1rem;
+    }
+    
+    .category-legend {
+        gap: 0.75rem;
+        display: flex !important; /* Ensure legend shows on smallest mobile too */
+    }
+    
+    .legend-item {
+        font-size: 0.75rem;
+    }
+    
+    .legend-color {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Focus states for accessibility */
+.blog-entry:focus {
+    outline: 2px solid var(--technical-border);
+    outline-offset: 2px;
+}
+
+.blog-entry:focus::before {
+    opacity: 1;
+}

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viết bài — Trong Khang</title>
+    <link rel="icon" href="/img/icon.png">
+    <script>document.documentElement.setAttribute('data-theme','dark');</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap">
+    <link rel="stylesheet" href="/static/post.css">
+    <link rel="stylesheet" href="/static/nav.css">
+    <link rel="stylesheet" href="/static/theme.css">
+    <script src="/js/theme.js" defer></script>
+    <style>
+        #content-wrap { padding-top: 0 !important; }
+        article { margin-top: 0 !important; padding-top: 0 !important; padding-left: 0 !important; padding-right: 0 !important; }
+        header { padding: 30px 0 0 0 !important; margin-left: 0 !important; margin-right: 0 !important; }
+        .post-heading { padding-left: 0 !important; margin-left: 0 !important; font-size: 1.6em !important; margin-bottom: 0.3em !important; margin-top: 0.4em !important; text-align: left !important; }
+        .page-description { color: #9aa1ab !important; font-size: 0.85em !important; margin-bottom: 2em !important; line-height: 1.6 !important; text-align: left !important; }
+        .write-form label { display: block; font-size: 0.85em; color: #9aa1ab; margin-bottom: 1.1em; }
+        .write-form input, .write-form select, .write-form textarea {
+            display: block; width: 100%; box-sizing: border-box; margin-top: 0.4em;
+            padding: 0.6em 0.7em; font: inherit; font-size: 1em; color: inherit;
+            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 4px; outline: none;
+        }
+        .write-form input:focus, .write-form select:focus, .write-form textarea:focus { border-color: rgba(232,117,26,0.7); }
+        .write-form textarea { min-height: 22em; resize: vertical; font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 0.95em; }
+        .write-form .row { display: flex; gap: 1rem; }
+        .write-form .row > label { flex: 1; }
+        .write-form button {
+            font: inherit; font-size: 0.9em; padding: 0.6em 1.8em; color: #12161d;
+            background: var(--ribbon-orange, #e8751a); border: none; border-radius: 4px;
+            cursor: pointer; transition: filter 0.2s ease;
+        }
+        .write-form button:hover { filter: brightness(1.12); }
+        .write-form button:disabled { opacity: 0.5; cursor: default; }
+        .form-status { font-size: 0.85em; color: #9aa1ab; min-height: 1.4em; margin: 1em 0 0 0; }
+        .markdown-help { font-size: 0.8em; color: #7f8896; line-height: 1.7; }
+    </style>
+</head>
+<body>
+<!-- site header -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<div class="site-nav-wrapper">
+    <a href="/" class="site-name">
+        <img src="/img/icon.png" alt="Trong Khang Icon">
+        Trong Khang
+    </a>
+    <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <nav class="site-nav">
+        <a href="/">About</a>
+        <a href="/public/blog.html">Blog</a>
+        <a href="/public/write.html">Write</a>
+    </nav>
+    <div class="social-icons">
+        <a href="https://x.com/trongkhang" target="_blank" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+        <a href="https://github.com/trongkhang" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/trongkhang/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+</div>
+<!-- /site header -->
+    <script src="/js/import-nav.js"></script>
+    <div id="page-wrap" class="fade-up">
+        <div id="content-wrap">
+            <article>
+                <header>
+                    <h1 class="post-heading" id="form-heading">viết bài mới</h1>
+                    <p class="page-description">bài viết được lưu vào <code>posts/&lt;slug&gt;.md</code> — dùng markdown.</p>
+                </header>
+
+                <form class="write-form" id="write-form">
+                    <label>Tiêu đề
+                        <input type="text" name="title" maxlength="200" required>
+                    </label>
+                    <div class="row">
+                        <label>Ngày
+                            <input type="date" name="date">
+                        </label>
+                        <label>Chuyên mục
+                            <select name="category">
+                                <option value="reflection">Reflection</option>
+                                <option value="technical">Technical</option>
+                                <option value="article">Article</option>
+                            </select>
+                        </label>
+                    </div>
+                    <label>Nội dung (markdown)
+                        <textarea name="body" required placeholder="# Tiêu đề&#10;&#10;Viết gì đó...&#10;&#10;- **đậm**, *nghiêng*, `code`&#10;![ảnh](/img/polar-bear-bg.jpg)"></textarea>
+                    </label>
+                    <button type="submit" id="submit-btn">Đăng bài</button>
+                    <p class="form-status" id="form-status" role="status"></p>
+                    <p class="markdown-help">
+                        Hỗ trợ: <code>#</code> tiêu đề · <code>**đậm**</code> · <code>*nghiêng*</code> ·
+                        <code>`code`</code> · <code>[link](url)</code> · <code>![ảnh](url)</code> ·
+                        <code>&gt; trích dẫn</code> · <code>- danh sách</code> · ``` ```code block``` ```
+                    </p>
+                </form>
+            </article>
+            <p style="text-align:center;"><a id="home-footer-link" href="/">Home</a></p>
+        </div>
+    </div>
+    <script>
+        (function () {
+            const form = document.getElementById('write-form');
+            const status = document.getElementById('form-status');
+            const button = document.getElementById('submit-btn');
+            const heading = document.getElementById('form-heading');
+            const slug = new URLSearchParams(location.search).get('slug');
+
+            if (slug) {
+                heading.textContent = 'sửa bài';
+                fetch('/api/posts/' + encodeURIComponent(slug))
+                    .then(function (res) { return res.json(); })
+                    .then(function (post) {
+                        form.title.value = post.title;
+                        form.date.value = post.date;
+                        form.category.value = post.category;
+                        form.body.value = post.raw;
+                    });
+            }
+
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                const data = Object.fromEntries(new FormData(form));
+                const payload = { title: data.title, body: data.body, date: data.date, category: data.category };
+                if (slug) payload.slug = slug;
+                button.disabled = true;
+                status.textContent = 'đang lưu...';
+                try {
+                    const res = await fetch('/api/posts', {
+                        method: 'POST',
+                        headers: { 'content-type': 'application/json' },
+                        body: JSON.stringify(payload),
+                    });
+                    const body = await res.json();
+                    if (!res.ok) throw new Error(body.error || 'lỗi');
+                    location.href = '/public/post.html?slug=' + encodeURIComponent(body.slug);
+                } catch (err) {
+                    status.textContent = err.message;
+                    button.disabled = false;
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

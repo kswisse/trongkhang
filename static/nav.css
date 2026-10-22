@@ -1,0 +1,362 @@
+
+    /* Reserve scrollbar space so centered nav links sit at the same spot on
+       scrolling and non-scrolling pages */
+    html {
+        scrollbar-gutter: stable;
+    }
+
+    /* Desktop: keep header transparent in both themes */
+    @media (min-width: 769px) {
+        .site-nav-wrapper {
+            background: transparent !important;
+        }
+    }
+
+    /* Global theme overrides when toggled to dark */
+    html[data-theme="dark"] {
+        --dark-text-color: #949494;
+        --nice-div-color: rgb(30, 30, 30);
+        --bullet-color: rgb(90,90,90);
+        --background-color: #121212;
+        --subtle-background-darker: rgb(23, 23, 23);
+        --border-background-color: #3b3d3e;
+        --code-background-color: #242424;
+        --link-background-color: #6b6b6b;
+        --link-color: #cfcfcf;
+        --color: #e6e6e6;
+        --hr-color: dimgray;
+        --gradient-bottom: #1e1e1e;
+        --gradient-top: var(--background-color);
+        /* Blog/Projects token set */
+        --text-primary: #e0e0e0;
+        --text-secondary: #a3a3a3;
+        --background: #121212;
+        --technical-bg: rgba(59, 130, 246, 0.08);
+        --reflection-bg: rgba(245, 158, 11, 0.08);
+        --article-bg: rgba(139, 92, 246, 0.08);
+        --research-bg: rgba(34, 197, 94, 0.08);
+        --web-bg: rgba(239, 68, 68, 0.08);
+        --tools-bg: rgba(168, 85, 247, 0.08);
+    }
+
+    /* Ensure nav text is bright in dark mode */
+    html[data-theme="dark"] .site-name,
+    html[data-theme="dark"] .site-nav a,
+    html[data-theme="dark"] .social-icons a {
+        color: #e6e6e6 !important;
+    }
+
+    html[data-theme="dark"] .site-nav a:hover {
+        border-bottom: none !important;
+        color: #ffffff !important;
+    }
+
+    /* Ensure nav backgrounds are dark when toggled */
+    html[data-theme="dark"] .site-nav-wrapper {
+        background-color: transparent !important; /* keep transparent to show particles */
+    }
+
+    @media (max-width: 768px) {
+        html[data-theme="dark"] .site-nav {
+            background-color: #121212 !important;
+        }
+    }
+
+    .site-nav-wrapper {
+        width: 100%;
+        padding: 2rem 0 0.5rem 0;
+        margin-bottom: 3rem;
+        box-sizing: border-box;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        background: transparent !important; /* allow particles behind header */
+    }
+
+    .site-name {
+        position: absolute;
+        left: 2rem;
+        font-family: 'Spectral', Times, serif !important;
+        font-size: 18px !important;
+        color: #52525b !important;
+        text-decoration: none !important;
+        opacity: 0.8;
+        transition: opacity 0.2s ease;
+        border: none !important;
+        background: none !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+    }
+
+    .site-name:hover {
+        opacity: 1;
+        border: none !important;
+    }
+
+    .site-name img {
+        width: 24px !important;
+        height: 24px !important;
+        border-radius: 50% !important;
+        object-fit: cover !important;
+    }
+
+    body {
+        padding-top: 80px !important;
+    }
+
+    .site-nav {
+        text-align: center;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        position: relative;
+    }
+
+    .site-nav::after {
+        content: '';
+        display: block;
+        width: 200px;
+        height: 1px;
+        background-color: #e0e0e0;
+        margin: 1rem auto 0;
+    }
+
+    .site-nav a {
+        display: inline-block;
+        margin: 0 1.2rem;
+        padding: 0;
+        color: #52525b !important;
+        text-decoration: none !important;
+        font-family: 'Spectral', Times, serif !important;
+        font-size: 16px !important;
+        line-height: normal !important;
+        border: none !important;
+        background: none !important;
+        transition: color 0.25s ease !important;
+        position: relative;
+        z-index: 2;
+        font-weight: normal !important;
+    }
+
+    .site-nav a::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -3px;
+        height: 1px;
+        background-color: currentColor;
+        transform: scaleX(0);
+        transform-origin: center;
+        transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .site-nav a:hover::after {
+        transform: scaleX(1);
+    }
+
+    /* border-bottom: none guards against page stylesheets that still set a
+       bordered hover on nav links */
+    .site-nav a:hover {
+        border-bottom: none !important;
+        background: none !important;
+        color: #18181b !important;
+    }
+
+    .social-icons {
+        position: absolute;
+        right: 2rem;
+        display: flex;
+        gap: 1.2rem;
+        align-items: center;
+    }
+
+    .social-icons a {
+        color: #52525b !important;
+        text-decoration: none !important;
+        border: none !important;
+        transition: opacity 0.2s ease;
+        opacity: 0.8;
+        font-size: 18px;
+    }
+
+    .social-icons a:hover {
+        opacity: 1;
+        border: none !important;
+    }
+
+    /* Mobile Styles */
+    @media (max-width: 768px) {
+        .site-nav-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 0.5rem 0;
+            height: 60px;
+            flex-direction: column;
+            align-items: center;
+            background-color: #ffffff !important;
+            z-index: 999;
+        }
+
+        .site-name {
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            margin: 0;
+            font-size: 18px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            gap: 0.5rem !important;
+            text-align: left;
+        }
+
+        .site-name img {
+            width: 20px !important;
+            height: 20px !important;
+        }
+
+        .hamburger {
+            position: absolute;
+            right: 1rem;
+            top: 0.7rem;
+            display: block;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 3;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background-color: #52525b;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .site-nav {
+            position: fixed;
+            top: 60px; /* directly below header */
+            left: 0;
+            width: 100%;
+            display: none;
+            background-color: rgba(10,14,21,0.96);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 1rem 0 0.5rem 0;
+            z-index: 998;
+        }
+
+        .site-nav.active {
+            display: block;
+        }
+
+        .site-nav a {
+            display: block;
+            margin: 0.5rem 0;
+            font-size: 16px !important;
+            padding: 0.5rem 2rem;
+            text-align: center;
+        }
+
+        /* Hamburger animation */
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Remove the line under nav in mobile view */
+        .site-nav::after {
+            display: none;
+        }
+
+        /* No hover underline in the mobile menu (links are full-width rows) */
+        .site-nav a::after {
+            display: none;
+        }
+
+        body {
+            padding-top: 60px !important; /* prevent overlap with fixed header */
+        }
+
+        /* Mobile social links container inside expanded menu */
+        .site-nav .mobile-social {
+            margin: 0.75rem 0 1rem 0;
+            display: flex;
+            gap: 1.2rem;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(0,0,0,0.08);
+        }
+    }
+
+    /* Even smaller screens */
+    @media (max-width: 480px) {
+        .site-nav a {
+            margin: 0.2rem 0.4rem;
+            font-size: 14px !important;
+        }
+
+        body {
+            padding-top: 60px !important;
+        }
+    }
+
+    /* Dark mode support for navigation */
+    @media (prefers-color-scheme: dark) {
+        /* Keep header transparent on desktop dark mode */
+        .site-nav-wrapper {
+            background-color: transparent !important;
+        }
+        
+        .site-name {
+            color: rgb(200,200,200) !important;
+        }
+        
+        .site-nav::after {
+            background-color: #3b3d3e;
+        }
+        
+        .site-nav a {
+            color: rgb(200,200,200) !important;
+        }
+        
+        .site-nav a:hover {
+            border-bottom: none !important;
+            color: #ffffff !important;
+        }
+        
+        .social-icons a {
+            color: rgb(200,200,200) !important;
+        }
+        
+        /* Dark mode mobile menu */
+        @media (max-width: 768px) {
+            .site-nav-wrapper {
+                background-color: #121212 !important;
+            }
+            .site-nav {
+                background-color: #121212 !important;
+            }
+            
+            .hamburger span {
+                background-color: rgb(200,200,200);
+            }
+        }
+    }

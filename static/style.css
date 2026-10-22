@@ -1,0 +1,219 @@
+body {
+    background-color: #ffffff;
+    font-family: 'Spectral', Times, serif;
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    text-align: left;
+    overflow: auto;
+}
+
+.container {
+    width: 65%;
+    max-width: 800px;
+    margin-top: 14vh;
+}
+
+:root {
+    /*
+    --background-color: #d9e4ec;
+    --color: #385e72;*/
+
+    --serif-font: 'Spectral', serif;
+    --sans-font: 'Helmet Neue', 'Helvetica', sans-serif;
+    --mono-font: 'Helmet', 'Courier', monospace;
+    --nav-font: 'Helmet', 'Helvetica', sans-serif;
+    --header-font: 'Spectral';
+
+    /* Light Mode Theme:*/
+    --dark-text-color: rgb(148, 148, 148);
+    --nice-div-color: rgb(249, 247, 246);
+    --bullet-color: rgb(184, 184, 184);
+    /*--link-background-color: rgba(221, 188, 187, 0.376);*/
+    /* old color: --link-color: rgb(227, 86, 82);*/
+    /*--link-color: rgb(113, 113, 113);*/
+    --link-color: #52525b;
+    --link-background-color: #9191a07f;
+    --background-color: white;
+    --subtle-background-darker: rgb(252, 248, 243);
+    --border-background-color: #e0e0e0;
+    --code-background-color: rgb(245,245,245);
+    --color: black;
+    --hr-color: black;
+    --gradient-bottom: #f0f0f0;
+    --gradient-top: var(--background-color);
+}
+@media (max-width: 600px) {
+    .container {
+        width: 80%;
+        padding: 20px;
+        margin-top: 25px;
+    }
+    
+    body {
+        align-items: flex-start;
+        overflow: auto;
+        min-height: 100vh;
+    }
+}
+
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+/* Make the site nav sticky with blur on content pages, too */
+.site-nav-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    -webkit-backdrop-filter: saturate(180%) blur(8px);
+    backdrop-filter: saturate(180%) blur(8px);
+    background-color: rgba(255,255,255,0.55) !important;
+}
+
+@media (max-width: 768px) {
+    .site-nav-wrapper {
+        position: fixed;
+        background-color: rgba(255,255,255,0.85) !important;
+    }
+}
+
+.container {
+    position: relative;
+    z-index: 1; 
+}
+
+blockquote {
+    font-style: italic;
+    background-color: var(--code-background-color);
+    padding: 5px 20px;
+    border-left: 2px solid var(--border-background-color);
+    border-radius: 8px;
+}
+
+.blockquote-noitalics {
+    font-style: normal;
+}
+
+a {
+    /*font-variant: small-caps;*/
+    font-weight: 400;
+    /*text-transform: capitalize;*/
+    text-decoration: none;
+
+    color: var(--link-color); 
+    border-bottom: 0.1em solid var(--link-background-color);    
+
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+a:hover {
+    cursor: pointer;
+    border-bottom: 0.1em solid var(--color);
+    color: var(--link-underline-color);
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li p {
+    display: inline;
+}
+
+ul > li::before {
+    content: "•";
+    color: var(--bullet-color);
+    position: absolute;
+    left: 0;
+    top: 0.1em;
+    font-size: 30px;
+    line-height: 1;
+}
+
+ul > li {
+    position: relative;
+    padding-left: 1.2em;
+    margin-bottom: 0.5em;
+}
+
+ol > li {
+    margin-bottom: 0.7em;
+}
+
+ol > li::marker {
+    color: var(--bullet-color);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --dark-text-color: #949494;
+        --nice-div-color: rgb(30, 30, 30);
+        --bullet-color: rgb(90,90,90);
+        --background-color: #121212;
+        --subtle-background-darker: rgb(23, 23, 23);
+        --border-background-color: #3b3d3e;
+        --code-background-color: #242424;
+        --link-background-color: #6b6b6b; 
+        --link-color: rgb(161, 161, 161);
+        --color: rgb(200,200,200);
+        --hr-color: dimgray;
+        --gradient-bottom: #1e1e1e;
+        --gradient-top: var(--background-color);
+    }
+    
+    body {
+        background-color: var(--background-color);
+        color: var(--color);
+    }
+    
+    /* Update particles.js background for dark mode */
+    #particles-js {
+        background-color: var(--background-color);
+    }
+    
+    /* Dark mode navigation colors */
+    .site-nav-wrapper {
+        background-color: var(--background-color) !important;
+    }
+    
+    .site-name {
+        color: var(--color) !important;
+    }
+    
+    .site-nav a {
+        color: var(--color) !important;
+    }
+    
+    .site-nav a:hover {
+        border-bottom: 0.1em solid var(--color) !important;
+        color: var(--color) !important;
+    }
+    
+    .social-icons a {
+        color: var(--color) !important;
+    }
+    
+    /* Dark mode mobile menu */
+    @media (max-width: 768px) {
+        .site-nav {
+            background-color: var(--background-color) !important;
+        }
+        
+        .hamburger span {
+            background-color: var(--color);
+        }
+    }
+}

@@ -1,0 +1,6 @@
+data/messages.jsonl
+.screens/
+__pycache__/
+
+.shots/
+.playwright-mcp/

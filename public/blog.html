@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Trong Khang</title>
+    <link rel="icon" href="/img/icon.png">
+    <script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}else if(t==='light'){document.documentElement.removeAttribute('data-theme');}}catch(e){}})();</script>
+    <style>
+        html[data-theme="dark"] {
+            --text-primary: #e0e0e0;
+            --text-secondary: #a3a3a3;
+            --background: #121212;
+        }
+        html[data-theme="dark"] body { background: var(--background, #121212); color: var(--text-primary, #e6e6e6); }
+        @media (prefers-color-scheme: dark) {
+            html:not([data-theme="light"]) body { background: #121212; color: #e0e0e0; }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap">
+    <link rel="stylesheet" href="/static/blog.css">
+    <style>
+        .fade-up { opacity: 0; transform: translateY(12px); transition: opacity 420ms ease, transform 420ms ease; will-change: opacity; }
+        .fade-up.is-visible { opacity: 1; transform: none; }
+    </style>
+    <script>document.documentElement.setAttribute('data-theme','dark');</script>
+    <link rel="stylesheet" href="/static/theme.css">
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+$1<link rel="stylesheet" href="/static/nav.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<div class="site-nav-wrapper">
+    <a href="/" class="site-name">
+        <img src="/img/icon.png" alt="Trong Khang Icon">
+        Trong Khang
+    </a>
+    <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <nav class="site-nav">
+        <a href="/">About</a>
+        <a href="/public/blog.html">Blog</a>
+        <a href="/public/write.html">Write</a>
+    </nav>
+    <div class="social-icons">
+        <a href="https://x.com/trongkhang" target="_blank" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+        <a href="https://github.com/trongkhang" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/trongkhang/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+</div>
+<!-- /site header -->
+    <script src="/js/import-nav.js"></script>
+    <div class="blog-page fade-up" id="blog-page">
+        <div class="blog-layout">
+            <!-- Category Legend -->
+            <div class="category-legend">
+                <div class="legend-item" data-category="technical">
+                    <div class="legend-color technical"></div>
+                    <span>Technical</span>
+                </div>
+                <div class="legend-item" data-category="reflection">
+                    <div class="legend-color reflection"></div>
+                    <span>Reflection</span>
+                </div>
+                <div class="legend-item" data-category="article">
+                    <div class="legend-color article"></div>
+                    <span>Article</span>
+                </div>
+            </div>
+            
+            <!-- Blog Entries (rendered from /api/posts) -->
+            <div class="blog-list" id="blog-list">
+                <p class="blog-empty" id="blog-empty">chưa có bài nào — <a href="/public/write.html">viết bài đầu tiên →</a></p>
+            </div>
+            
+            <!-- Hover Preview Area -->
+            <svg class="branch-svg" aria-hidden="true">
+                <path class="branch-path" d=""/>
+            </svg>
+            <div class="hover-preview">
+                <p class="preview-subtitle"></p>
+            </div>
+        </div>
+        
+        <footer>
+            <a id="home-footer-link" href="/">Home</a>
+        </footer>
+    </div>
+    
+    <script>
+        // Blog list: posts come from the API, categories filter them
+        (function () {
+            const page = document.getElementById('blog-page');
+            if (page) requestAnimationFrame(function () { page.classList.add('is-visible'); });
+
+            const list = document.getElementById('blog-list');
+            const empty = document.getElementById('blog-empty');
+            const hoverPreview = document.querySelector('.hover-preview');
+            const previewSubtitle = document.querySelector('.preview-subtitle');
+            const branchSvg = document.querySelector('.branch-svg');
+            const branchPath = document.querySelector('.branch-path');
+            const legendItems = document.querySelectorAll('.legend-item');
+            const isMobile = window.innerWidth <= 768;
+
+            function placePreview() {
+                const vw = window.innerWidth;
+                const listRight = list.getBoundingClientRect().right;
+                const left = Math.max(vw / 2 + (vw >= 1400 ? 220 : 120), listRight + 40);
+                const width = Math.min(vw >= 1400 ? 360 : 320, vw - 32 - left);
+                if (width < 200) return false;
+                hoverPreview.style.left = left + 'px';
+                hoverPreview.style.width = width + 'px';
+                return true;
+            }
+
+            function drawBranch(entry) {
+                const from = entry.querySelector('.blog-title').getBoundingClientRect();
+                const to = hoverPreview.getBoundingClientRect();
+                const sx = from.right + 12;
+                const sy = from.top + from.height / 2;
+                const ex = to.left - 16;
+                const ey = to.top + to.height / 2;
+                const bend = (ex - sx) * 0.45;
+                branchPath.setAttribute('d',
+                    'M ' + sx + ' ' + sy + ' C ' + (sx + bend) + ' ' + sy + ', ' + (ex - bend) + ' ' + ey + ', ' + ex + ' ' + ey);
+                const length = branchPath.getTotalLength();
+                branchPath.style.transition = 'none';
+                branchPath.style.strokeDasharray = length;
+                branchPath.style.strokeDashoffset = length;
+                branchPath.getBoundingClientRect();
+                branchPath.style.transition = '';
+                branchPath.style.strokeDashoffset = '0';
+            }
+
+            function render(posts) {
+                list.innerHTML = '';
+                if (!posts.length) {
+                    const p = document.createElement('p');
+                    p.className = 'blog-empty';
+                    p.innerHTML = 'chưa có bài nào — <a href="/public/write.html">viết bài đầu tiên →</a>';
+                    list.appendChild(p);
+                    return;
+                }
+                posts.forEach(function (post, idx) {
+                    const a = document.createElement('a');
+                    a.href = '/public/post.html?slug=' + encodeURIComponent(post.slug);
+                    a.className = 'blog-entry ' + (post.category || 'reflection');
+                    a.dataset.subtitle = post.excerpt || '';
+                    a.innerHTML = '<span class="blog-date">' + (post.date || '') + '</span>' +
+                                  '<span class="blog-title"></span>';
+                    a.querySelector('.blog-title').textContent = post.title;
+                    a.style.opacity = '0';
+                    a.style.transform = 'translateY(10px)';
+                    a.style.transition = 'opacity 420ms ease, transform 420ms ease';
+                    setTimeout(function () {
+                        a.style.opacity = '1';
+                        a.style.transform = 'none';
+                    }, 80 + idx * 30);
+                    if (!isMobile) {
+                        a.addEventListener('mouseenter', function () {
+                            if (!placePreview()) return;
+                            previewSubtitle.textContent = a.dataset.subtitle;
+                            hoverPreview.classList.add('visible');
+                            drawBranch(a);
+                            branchSvg.classList.add('visible');
+                        });
+                        a.addEventListener('mouseleave', function () {
+                            hoverPreview.classList.remove('visible');
+                            branchSvg.classList.remove('visible');
+                        });
+                    }
+                    list.appendChild(a);
+                });
+            }
+
+            legendItems.forEach(function (item) {
+                item.addEventListener('click', function () {
+                    const category = item.getAttribute('data-category');
+                    const active = item.classList.contains('active');
+                    legendItems.forEach(function (other) { other.classList.remove('active'); });
+                    if (active) {
+                        list.querySelectorAll('.blog-entry').forEach(function (entry) { entry.classList.remove('hidden'); });
+                    } else {
+                        item.classList.add('active');
+                        list.querySelectorAll('.blog-entry').forEach(function (entry) {
+                            entry.classList.toggle('hidden', !entry.classList.contains(category));
+                        });
+                    }
+                });
+            });
+
+            fetch('/api/posts')
+                .then(function (res) { return res.json(); })
+                .then(function (data) { render(data.posts || []); })
+                .catch(function () { render([]); });
+        })();
+    </script>
+</body>
+</html>
