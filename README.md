@@ -10,7 +10,12 @@ logo gấu bắc cực, có backend nhỏ cho form liên hệ và **engine blog 
 python app.py          # http://localhost:8000
 ```
 
-Env: `PORT` (mặc định 8000). Không cần cài dependency — chỉ Python 3 stdlib.
+Env: `PORT` (mặc định 8000), `HOST` (mặc định 127.0.0.1; Render set `HOST=0.0.0.0`). Không cần cài dependency — chỉ Python 3 stdlib.
+
+## Triển khai
+
+- **Live:** https://trongkhang.onrender.com — Render Web Service **Free**, cấu hình trong `render.yaml`; auto-deploy khi push nhánh `main`.
+- **Lưu ý:** instance Free ngủ sau ~15 phút idle (cold start ~40s); bài viết/tin nhắn **viết trên site live chỉ sống tạm** — FS reset mỗi lần redeploy. Muốn giữ bài: commit `posts/<slug>.md` vào git, push là deploy lại kèm bài.
 
 ## Viết bài
 
