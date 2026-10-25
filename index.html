@@ -107,6 +107,36 @@
 
         /* Home: about + game, two columns on desktop */
         .container { padding-bottom: 4rem; }
+        .newsletter {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.6rem;
+            margin-top: 2.5rem;
+            font-size: 0.9rem;
+            color: var(--color, #e6e6e6);
+        }
+        .newsletter input {
+            flex: 1 1 200px;
+            min-width: 0;
+            padding: 0.45rem 0.6rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.06);
+            color: inherit;
+            font: inherit;
+        }
+        .newsletter button {
+            padding: 0.45rem 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            color: inherit;
+            font: inherit;
+            cursor: pointer;
+        }
+        .newsletter button:disabled { opacity: 0.6; cursor: default; }
+        .newsletter-status { flex-basis: 100%; opacity: 0.8; }
         .game-panel {
             border: 1px solid rgba(255, 255, 255, 0.14);
             border-radius: 12px;
@@ -261,7 +291,38 @@
                 <canvas id="flappy" width="360" height="480" tabindex="0" aria-label="Flappy arctic bird mini-game"></canvas>
             </aside>
         </div>
+        <form class="newsletter" id="newsletter">
+            <label for="newsletter-email">get new posts by email</label>
+            <input id="newsletter-email" name="email" type="email" required placeholder="you@email.com" autocomplete="email">
+            <button type="submit">subscribe</button>
+            <span class="newsletter-status" id="newsletter-status" role="status"></span>
+        </form>
     </div>
+
+    <script>
+        // Newsletter signup reuses the contact API; the entry is stored in data/messages.jsonl.
+        document.getElementById('newsletter').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            var email = document.getElementById('newsletter-email');
+            var button = this.querySelector('button');
+            var status = document.getElementById('newsletter-status');
+            button.disabled = true;
+            try {
+                var res = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: 'newsletter', email: email.value, message: 'newsletter signup' }),
+                });
+                if (!res.ok) throw new Error('request failed');
+                email.value = '';
+                email.disabled = true;
+                status.textContent = 'thanks — you are on the list.';
+            } catch (err) {
+                button.disabled = false;
+                status.textContent = 'something went wrong, please try again.';
+            }
+        });
+    </script>
 
     <script>
         // Page load reveal
