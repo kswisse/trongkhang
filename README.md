@@ -79,3 +79,4 @@ node --test tests/test_flappy_core.js        # 4 tests
 - `static/post.css` vẫn khai báo font `Helmet` / `Space Mono` trỏ tới file `.ttf` không tồn tại — bản gốc cũng 404 đúng vậy, trình duyệt tự fallback về font hệ thống.
 - Nav chỉ còn icon GitHub (`github.com/kswisse`); X và LinkedIn đã gỡ khỏi mọi trang.
 - Gỡ bài: xoá file `posts/<slug>.md`.
+- **Newsletter** (dòng cuối trang chủ): email đăng ký được ghi vào `data/messages.jsonl` (cùng file với form contact, `name: "newsletter"`). Trên Render free, danh sách này **mất khi redeploy** — muốn giữ lâu dài thì nối form sang dịch vụ newsletter (Buttondown/Mailchimp).
