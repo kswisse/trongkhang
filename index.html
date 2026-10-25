@@ -104,6 +104,47 @@
                 line-height: 1.5;
             }
         }
+
+        /* Home: about + game, two columns on desktop */
+        .container { padding-bottom: 4rem; }
+        .game-panel {
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 12px;
+            background: rgba(10, 14, 21, 0.55);
+            padding: 10px;
+        }
+        .game-panel canvas {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+            touch-action: none;
+            outline: none;
+        }
+        @media (min-width: 1024px) {
+            .container {
+                width: 100%;
+                max-width: 1060px;
+            }
+            .home-grid {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) 380px;
+                gap: 3rem;
+                align-items: start;
+            }
+            .game-panel {
+                position: sticky;
+                top: 96px;
+            }
+            /* narrow column: keep native bullets, no negative-nudge hack */
+            .beliefs-list > li:nth-child(n+4) { margin-left: 0; }
+        }
+        @media (max-width: 1023px) {
+            .game-panel {
+                margin: 2rem 0 0;
+                max-width: 420px;
+            }
+        }
     </style>
     <style>
         /* Subtle fade-up reveal */
@@ -113,10 +154,11 @@
     <script>document.documentElement.setAttribute('data-theme','dark');</script>
     <link rel="stylesheet" href="/static/theme.css">
     <script src="/js/theme.js" defer></script>
+    <script src="/js/flappy.js" defer></script>
 </head>
 
 <body>
-$1<link rel="stylesheet" href="/static/nav.css">
+<link rel="stylesheet" href="/static/nav.css">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -137,7 +179,7 @@ $1<link rel="stylesheet" href="/static/nav.css">
     </nav>
     <div class="social-icons">
         <a href="https://x.com/trongkhang" target="_blank" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
-        <a href="https://github.com/trongkhang" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://github.com/kswisse" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
         <a href="https://www.linkedin.com/in/trongkhang/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
     </div>
 </div>
@@ -191,29 +233,36 @@ $1<link rel="stylesheet" href="/static/nav.css">
     </script>
 
     <div class="container">
-        <p>hi! i'm trong khang</p>
-        <p>my life goal is to explore the potentialities of intelligence</p>
-        <p>right now i'm doing ml research at <a href="https://www.kimi.com/">kimi moonshot</a>, where i work on llm scaling & pretraining (e.g., kimi k3). my research mostly focuses on model architectures (<a href="https://x.com/Kimi_Moonshot/status/2033378587878072424">past example</a>) and optimizers. i also like thinking about efficient, hardware-aligned algorithms and kernels (co-design them!).</p>
-        <p>prior to this, i worked on applied interp research at <a href="https://www.tilderesearch.com/">tilde research</a>. outside of work, i try to learn as much as i can.</p>
-        <p>here are some things i believe in:</p>
-        <ul class="beliefs-list">
-            <li>agency is a superpower</li>
-            <li>taste is learnable</li>
-            <li>write things down</li>
-            <li class="shift-left"><i>everything is figureoutable with friends</i></li>
-            <li class="shift-left">the world is hackable in <i>wholesome</i> ways</li>
-            <li class="shift-left">don't sink into a local minimum</li>
-        </ul>
-        <p>here are some things i like:</p>
-        <ul>
-            <li>serendipitous blogs, open-source, mangoes, cold showers, excalidraw, doc.new, elegant kernels, asking llms first, mixing lego pieces, constrained geometric shapes, meditating, learning from my sensei gemini (this didn't age well), intuition, light mode, cli, blocks, "twitter" - the name, twitter's rec algo</li>
-        </ul>
-        <p>things i don't like:</p>
-        <ul>
-            <li>twitter's rec algo</li>
-        </ul>
-        <p>i love people and write back. <a href="public/contact.html">send me a message!</a> (email probably works best)</p>
-        <p class="site-credit">logo: Arturo de Frias Marques (Wikimedia Commons) — <a href="https://commons.wikimedia.org/wiki/File:Polar_Bear_AdF.jpg" target="_blank" rel="noopener">CC BY-SA 4.0</a> · nền: "Polar bears near north pole" (public domain)</p>
+        <div class="home-grid">
+            <div class="about-col">
+                <p>hi! i'm trong khang — a 12th grader in ho chi minh city.</p>
+                <p>my life goal is to explore intelligence. next year i'm heading to france for a licence in maths &amp; computer science or CPGE, then an engineering degree or a phd — modelling, scientific computing, and ai applied to physical systems.</p>
+                <p>right now i mentor students in programming and research methodology at <a href="https://bioturing.com/" target="_blank" rel="noopener">bioturing</a>, run stem workshops at ichc, and build things: ai-dermdiag (skin lesion classification, 85.2% on ham10000, pytorch + grad-cam), a real-time fact-checking agent that won hack fiesta miami, and a tick-level c++ backtesting engine.</p>
+                <p>before that: phonon-assisted thermal rectification research, engineering stints at hcmut, and the icebreaker of knowledge expedition — representing vietnam among students from 22+ countries. also 1st prize at yimo 2026 (20/20) and a finalist at the vnexpress science initiative.</p>
+                <p>here are some things i believe in:</p>
+                <ul class="beliefs-list">
+                    <li>ship first, taste later</li>
+                    <li>write things down</li>
+                    <li>math is the language, code is the pen</li>
+                    <li class="shift-left"><i>build agents, not prompts</i></li>
+                    <li class="shift-left">the fastest way to learn is to teach</li>
+                    <li class="shift-left">don't sink into a local minimum</li>
+                </ul>
+                <p>here are some things i like:</p>
+                <ul>
+                    <li>vovinam (district and city medals), percussion, hackathons, open-source, elegant kernels, cold showers, mangoes, french (b2, delf pending), esp32 tinkering, long walks with a problem in my head</li>
+                </ul>
+                <p>things i don't like:</p>
+                <ul>
+                    <li>losing to my own backtest</li>
+                </ul>
+                <p>i love meeting people who build. <a href="/public/contact.html">send me a message!</a></p>
+                <p class="site-credit">logo: Arturo de Frias Marques (Wikimedia Commons) — <a href="https://commons.wikimedia.org/wiki/File:Polar_Bear_AdF.jpg" target="_blank" rel="noopener">CC BY-SA 4.0</a> · background: "Polar bears near north pole" (public domain)</p>
+            </div>
+            <aside class="game-panel" id="game-panel">
+                <canvas id="flappy" width="360" height="480" tabindex="0" aria-label="Flappy arctic bird mini-game"></canvas>
+            </aside>
+        </div>
     </div>
 
     <script>

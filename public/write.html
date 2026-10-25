@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Viết bài — Trong Khang</title>
+    <title>Write a post — Trong Khang</title>
     <link rel="icon" href="/img/icon.png">
     <script>document.documentElement.setAttribute('data-theme','dark');</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -61,7 +61,7 @@
     </nav>
     <div class="social-icons">
         <a href="https://x.com/trongkhang" target="_blank" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
-        <a href="https://github.com/trongkhang" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://github.com/kswisse" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
         <a href="https://www.linkedin.com/in/trongkhang/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
     </div>
 </div>
@@ -71,19 +71,19 @@
         <div id="content-wrap">
             <article>
                 <header>
-                    <h1 class="post-heading" id="form-heading">viết bài mới</h1>
-                    <p class="page-description">bài viết được lưu vào <code>posts/&lt;slug&gt;.md</code> — dùng markdown.</p>
+                    <h1 class="post-heading" id="form-heading">write a post</h1>
+                    <p class="page-description">saved to <code>posts/&lt;slug&gt;.md</code> — markdown supported.</p>
                 </header>
 
                 <form class="write-form" id="write-form">
-                    <label>Tiêu đề
+                    <label>Title
                         <input type="text" name="title" maxlength="200" required>
                     </label>
                     <div class="row">
-                        <label>Ngày
+                        <label>Date
                             <input type="date" name="date">
                         </label>
-                        <label>Chuyên mục
+                        <label>Category
                             <select name="category">
                                 <option value="reflection">Reflection</option>
                                 <option value="technical">Technical</option>
@@ -91,15 +91,15 @@
                             </select>
                         </label>
                     </div>
-                    <label>Nội dung (markdown)
-                        <textarea name="body" required placeholder="# Tiêu đề&#10;&#10;Viết gì đó...&#10;&#10;- **đậm**, *nghiêng*, `code`&#10;![ảnh](/img/polar-bear-bg.jpg)"></textarea>
+                    <label>Body (markdown)
+                        <textarea name="body" required placeholder="# Heading&#10;&#10;Write something...&#10;&#10;- **bold**, *italic*, `code`&#10;![image](/img/polar-bear-bg.jpg)"></textarea>
                     </label>
-                    <button type="submit" id="submit-btn">Đăng bài</button>
+                    <button type="submit" id="submit-btn">Publish</button>
                     <p class="form-status" id="form-status" role="status"></p>
                     <p class="markdown-help">
-                        Hỗ trợ: <code>#</code> tiêu đề · <code>**đậm**</code> · <code>*nghiêng*</code> ·
-                        <code>`code`</code> · <code>[link](url)</code> · <code>![ảnh](url)</code> ·
-                        <code>&gt; trích dẫn</code> · <code>- danh sách</code> · ``` ```code block``` ```
+                        Supported: <code>#</code> heading · <code>**bold**</code> · <code>*italic*</code> ·
+                        <code>`code`</code> · <code>[link](url)</code> · <code>![image](url)</code> ·
+                        <code>&gt; quote</code> · <code>- list</code> · ``` ```code block``` ```
                     </p>
                 </form>
             </article>
@@ -115,7 +115,7 @@
             const slug = new URLSearchParams(location.search).get('slug');
 
             if (slug) {
-                heading.textContent = 'sửa bài';
+                heading.textContent = 'edit post';
                 fetch('/api/posts/' + encodeURIComponent(slug))
                     .then(function (res) { return res.json(); })
                     .then(function (post) {
@@ -132,7 +132,7 @@
                 const payload = { title: data.title, body: data.body, date: data.date, category: data.category };
                 if (slug) payload.slug = slug;
                 button.disabled = true;
-                status.textContent = 'đang lưu...';
+                status.textContent = 'saving...';
                 try {
                     const res = await fetch('/api/posts', {
                         method: 'POST',
@@ -140,7 +140,7 @@
                         body: JSON.stringify(payload),
                     });
                     const body = await res.json();
-                    if (!res.ok) throw new Error(body.error || 'lỗi');
+                    if (!res.ok) throw new Error(body.error || 'error');
                     location.href = '/public/post.html?slug=' + encodeURIComponent(body.slug);
                 } catch (err) {
                     status.textContent = err.message;

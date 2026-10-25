@@ -51,7 +51,7 @@
     </nav>
     <div class="social-icons">
         <a href="https://x.com/trongkhang" target="_blank" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
-        <a href="https://github.com/trongkhang" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://github.com/kswisse" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
         <a href="https://www.linkedin.com/in/trongkhang/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
     </div>
 </div>
@@ -66,8 +66,8 @@
                 </header>
                 <div class="post-body" id="post-body"></div>
                 <p class="post-actions">
-                    <a id="edit-link" href="/public/write.html">edit bài này</a> ·
-                    <a href="/public/blog.html">← tất cả bài viết</a>
+                    <a id="edit-link" href="/public/write.html">edit this post</a> ·
+                    <a href="/public/blog.html">← all posts</a>
                 </p>
             </article>
             <p style="text-align:center;"><a id="home-footer-link" href="/">Home</a></p>
@@ -81,7 +81,7 @@
             const bodyEl = document.getElementById('post-body');
             const editLink = document.getElementById('edit-link');
             if (!slug) {
-                titleEl.textContent = 'không tìm thấy bài viết';
+                titleEl.textContent = 'post not found';
                 metaEl.textContent = '';
                 bodyEl.innerHTML = '<p>Thiếu tham số <code>?slug=</code>. <a href="/public/blog.html">Về trang blog</a>.</p>';
                 return;
@@ -99,8 +99,8 @@
                     bodyEl.innerHTML = post.html;
                 })
                 .catch(function () {
-                    titleEl.textContent = 'không tìm thấy bài viết';
-                    bodyEl.innerHTML = '<p>Bài viết này không tồn tại (hoặc đã bị xoá).</p>';
+                    titleEl.textContent = 'post not found';
+                    bodyEl.innerHTML = '<p>This post does not exist (or was deleted).</p>';
                 });
         })();
     </script>

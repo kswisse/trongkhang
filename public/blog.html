@@ -30,7 +30,7 @@
     <script src="/js/theme.js" defer></script>
 </head>
 <body>
-$1<link rel="stylesheet" href="/static/nav.css">
+<link rel="stylesheet" href="/static/nav.css">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -51,7 +51,7 @@ $1<link rel="stylesheet" href="/static/nav.css">
     </nav>
     <div class="social-icons">
         <a href="https://x.com/trongkhang" target="_blank" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
-        <a href="https://github.com/trongkhang" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://github.com/kswisse" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
         <a href="https://www.linkedin.com/in/trongkhang/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
     </div>
 </div>
@@ -77,7 +77,7 @@ $1<link rel="stylesheet" href="/static/nav.css">
             
             <!-- Blog Entries (rendered from /api/posts) -->
             <div class="blog-list" id="blog-list">
-                <p class="blog-empty" id="blog-empty">chưa có bài nào — <a href="/public/write.html">viết bài đầu tiên →</a></p>
+                <p class="blog-empty" id="blog-empty">no posts yet — <a href="/public/write.html">write the first one →</a></p>
             </div>
             
             <!-- Hover Preview Area -->
@@ -144,7 +144,7 @@ $1<link rel="stylesheet" href="/static/nav.css">
                 if (!posts.length) {
                     const p = document.createElement('p');
                     p.className = 'blog-empty';
-                    p.innerHTML = 'chưa có bài nào — <a href="/public/write.html">viết bài đầu tiên →</a>';
+                    p.innerHTML = 'no posts yet — <a href="/public/write.html">write the first one →</a>';
                     list.appendChild(p);
                     return;
                 }
