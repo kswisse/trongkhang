@@ -43,7 +43,7 @@ class ContactApiTest(unittest.TestCase):
         with urllib.request.urlopen(self.base + "/") as res:
             html = res.read().decode()
         self.assertIn("Trong Khang", html)
-        self.assertIn("trongkhang", html)
+        self.assertIn('id="flappy"', html)
 
     def test_contact_message_is_stored(self):
         status, body = self.post({"name": "Khang", "email": "a@b.co", "message": "hi"})

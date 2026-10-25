@@ -77,5 +77,5 @@ node --test tests/test_flappy_core.js        # 4 tests
 - **Theme tối một chiều** (`data-theme="dark"` luôn được set trong `<head>` từng trang), không còn switch sáng/tối.
 - **Ảnh**: logo cắt từ [Polar Bear AdF.jpg](https://commons.wikimedia.org/wiki/File:Polar_Bear_AdF.jpg) của Arturo de Frias Marques — **CC BY-SA 4.0** (đã ghi credit ở cuối trang About); ảnh nền *Polar bears near north pole* là public domain (Wikimedia Commons).
 - `static/post.css` vẫn khai báo font `Helmet` / `Space Mono` trỏ tới file `.ttf` không tồn tại — bản gốc cũng 404 đúng vậy, trình duyệt tự fallback về font hệ thống.
-- Các link `x.com/trongkhang/status/...` là link gốc đã đổi handle nên sẽ không mở được; sửa trong file HTML nếu cần.
+- Nav chỉ còn icon GitHub (`github.com/kswisse`); X và LinkedIn đã gỡ khỏi mọi trang.
 - Gỡ bài: xoá file `posts/<slug>.md`.
